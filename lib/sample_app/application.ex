@@ -17,9 +17,11 @@ defmodule SampleApp.Application do
       # Start Finch
       {Finch, name: SampleApp.Finch},
       # Start the Endpoint (http/https)
-      SampleAppWeb.Endpoint
+      SampleAppWeb.Endpoint,
       # Start a worker by calling: SampleApp.Worker.start_link(arg)
       # {SampleApp.Worker, arg}
+      {Registry, keys: :unique, name: StudentClassRegistry},
+      {DynamicSupervisor, [name: StudentClassSpawner, strategy: :one_for_one]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
